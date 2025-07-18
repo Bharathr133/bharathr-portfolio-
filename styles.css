@@ -461,3 +461,47 @@ ul {
     align-items: center;
   }
 }
+/* ✅ Mobile responsiveness */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .resume-button {
+    margin-top: 10px;
+    width: 80%;
+    max-width: 250px;
+  }
+
+  .section, .projects, .about, .education {
+    width: 100%;
+    margin: 10px auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
