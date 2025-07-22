@@ -26,7 +26,7 @@ This website showcases my **projects**, **skills**, and a little about who I am.
 ---
 
 ## 📫 Connect with Me
-- 📧 Email: bharathr.email@example.com *(replace with real one)*
+- 📧 Email: 12345bharathr.com@gmail.com 
 - 💼 LinkedIn: [linkedin.com/in/bharathr133](https://linkedin.com/in/bharathr133)
 - 🌐 GitHub: [github.com/Bharathr133](https://github.com/Bharathr133)
 
