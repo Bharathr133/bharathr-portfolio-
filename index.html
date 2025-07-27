@@ -42,7 +42,10 @@
           <a href="https://wa.me/917892771468" target="_blank" class="float"><i class="fab fa-whatsapp"></i></a>
         </div>
         <a href="#contact" class="btn float-btn">Get In Touch</a>
-        <!-- <a href="resume.pdf" class="btn btn-outline float-btn" download="Bharath_R_Resume.pdf">Download CV</a> -->
+        <!-- Replace your commented out Download CV button with this -->
+        <!-- <a href="#" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a> -->
+        <a href="#contact" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a>
+        <!-- <a href="Bharath_R_Resume.pdf" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a> -->
       </div>
       <div class="hero-image">
         <div class="floating-image">
@@ -177,7 +180,7 @@
               <span>70%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" data-width="90"></div>
+              <div class="skill-progress" data-width="70"></div>
             </div>
           </div>
           <div class="skill-item">
@@ -327,6 +330,105 @@
       </div>
     </div>
   </section>
+  <!-- Add this to your HTML file -->
+<section class="certifications" id="certifications">
+  <h2>My Certifications</h2>
+  <div class="cert-slider">
+    <!-- AWS Summit -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/aws summit (2025).jpg" alt="AWS Summit 2025" loading="lazy">
+        <div class="cert-overlay">
+          <h3>AWS Summit Attendee</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="aws summit (2025).jpg">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Coddy Tech -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/coddy_tech (2024).jpg" alt="Coddy Tech Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>Coddy Tech Certification</h3>
+          <p>Issued: 2024</p>
+          <button class="view-btn" data-cert="coddy_tech (2024).jpg">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- HackerRank -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/HackerRank certificate.png" alt="HackerRank Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>HackerRank Certification</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="HackerRank certificate.png">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- IBM -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/IBM Certification (2025).jpg" alt="IBM Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>IBM Professional</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="IBM Certification (2025).jpg">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Skilected -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/skilected certificate(2025).jpg" alt="Skilected Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>Skilected Certified</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="skilected certificate(2025).jpg">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TCS ION -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/tcs ion (2025).jpg" alt="TCS ION Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>TCS ION Certified</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="tcs ion (2025).jpg">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Udemy -->
+    <div class="cert-slide">
+      <div class="cert-card">
+        <img src="certificates/Udemy_Certificate(2025).jpg" alt="Udemy Certification" loading="lazy">
+        <div class="cert-overlay">
+          <h3>Udemy Professional</h3>
+          <p>Issued: 2025</p>
+          <button class="view-btn" data-cert="Udemy_Certificate(2025).jpg">View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Slider Controls -->
+  <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+  <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+  
+  <!-- Lightbox Modal -->
+  <div class="cert-lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightbox-img" src="" alt="Certificate Preview">
+  </div>
+</section>
 
   <!-- Education Section -->
   <section class="education section" id="education">
@@ -403,54 +505,74 @@
             </div>
           </div>
         </div>
-        <div class="contact-form floating-card">
-          <form id="contactForm">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="from_name" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Your Email</label>
-              <input type="email" id="email" name="from_email" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Your Message</label>
-              <textarea id="message" name="message" class="form-control" required></textarea>
-            </div>
-            <button type="submit" class="btn float-btn">Send Message</button>
-          </form>
-        </div>
-      </div>
+       <div class="contact-form floating-card">
+  <form id="contactForm">
+    <div class="form-group">
+      <label for="name">Your Name*</label>
+      <input type="text" id="name" name="from_name" class="form-control" required>
+      <small class="error-message" id="name-error"></small>
     </div>
+    
+    <div class="form-group">
+      <label for="email">Your Email*</label>
+      <input type="email" id="email" name="from_email" class="form-control" required>
+      <small class="error-message" id="email-error"></small>
+    </div>
+    
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" class="form-control">
+      <small class="error-message" id="phone-error"></small>
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Your Message*</label>
+      <textarea id="message" name="message" class="form-control" required></textarea>
+      <small class="error-message" id="message-error"></small>
+    </div>
+    
+
+    <button type="submit" class="btn float-btn">Send Message</button>
+  </form>
+</div>
+
   </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <a href="#" class="footer-logo">Bharath R</a>
-      <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-socials">
-        <a href="https://www.instagram.com/bharathr_13" target="_blank" class="float"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/bharathr133" target="_blank" class="float"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/bharathr13" target="_blank" class="float"><i class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:12345bharathr.com@gmail.com" class="float"><i class="fas fa-envelope"></i></a>
-        <a href="https://wa.me/917892771468" target="_blank" class="float"><i class="fab fa-whatsapp"></i></a>
-      </div>
-      <p class="copyright">© 2025 Bharath R. All rights reserved.</p>
+<footer>
+  <div class="footer-content">
+    <a href="#" class="footer-logo">Bharath R</a>
+    
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </div>
-  </footer>
-
+    
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/bharathr_13" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/bharathr133" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/bharathr13" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:12345bharathr.com@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://wa.me/917892771468" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    
+    <p class="copyright">© <span id="current-year">2025</span> Bharath R. All rights reserved.</p>
+  </div>
+</footer>
   <!-- Back to Top Button -->
   <div class="back-to-top" id="back-to-top">
     <i class="fas fa-arrow-up"></i>
   </div>
-
+<!-- Custom Alert Modal -->
+<div id="custom-alert" class="custom-alert">
+  <div class="custom-alert-content floating-card">
+    <h3>Bharath R says</h3>
+    <p id="custom-alert-message"></p>
+    <button id="custom-alert-ok" class="btn float-btn">OK</button>
+  </div>
+</div>
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>

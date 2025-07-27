@@ -1,90 +1,74 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize EmailJS
-  (function() {
-    emailjs.init("VdMoWyii0_W4uT7mJ"); // Your EmailJS Public Key
-  })();
+  emailjs.init("VdMoWyii0_W4uT7mJ"); // Your EmailJS Public Key
 
   // Mobile Menu Toggle
   const menuBtn = document.getElementById('menu-btn');
   const nav = document.getElementById('nav');
 
-  menuBtn.addEventListener('click', () => {
-    nav.classList.toggle('active');
-    menuBtn.innerHTML = nav.classList.contains('active') ? 
-      '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-  });
-
-  // Close mobile menu when clicking a link
-  document.querySelectorAll('#nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('active');
-      menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuBtn.innerHTML = nav.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
-  });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+  }
 
   // Header scroll effect
   window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (header) {
+      header.classList.toggle('scrolled', window.scrollY > 50);
     }
   });
 
   // Typewriter Effect
-  const phrases = [
-    "Computer Science Engineer",
-    "Full Stack Developer",
-    "Machine Learning Enthusiast",
-    "Tech Explorer",
-    "Problem Solver"
-  ];
+  const typewriter = document.getElementById('typewriter');
+  if (typewriter) {
+    const phrases = [
+      "Computer Science Engineer",
+      "Full Stack Developer",
+      "Machine Learning Enthusiast",
+      "Tech Explorer",
+      "Problem Solver"
+    ];
 
-  let i = 0;
-  let typewriter = document.getElementById('typewriter');
+    let i = 0;
+    function rotateText() {
+      typewriter.textContent = phrases[i];
+      i = (i + 1) % phrases.length;
+    }
 
-  function rotateText() {
-    typewriter.textContent = phrases[i];
-    i = (i + 1) % phrases.length;
+    setInterval(rotateText, 2000);
+    rotateText();
   }
-
-  setInterval(rotateText, 2000);
-  rotateText();
-
-  // Contact Form Submission
-  document.getElementById('contactForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    emailjs.sendForm('service_kuyco8a', 'template_gdh7qcu', this)
-      .then(() => {
-        alert('Message sent successfully!');
-        this.reset();
-      }, (error) => {
-        alert('Failed to send message. Please try again later.');
-        console.error(error);
-      });
-  });
 
   // Back to Top Button
   const backToTopBtn = document.getElementById('back-to-top');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('active');
-    } else {
-      backToTopBtn.classList.remove('active');
-    }
-  });
-
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('active', window.scrollY > 300);
     });
-  });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
   // Animate Skill Bars on Scroll
   const skillBars = document.querySelectorAll('.skill-progress');
+  const skillsSection = document.getElementById('skills');
 
   function animateSkillBars() {
     skillBars.forEach(bar => {
@@ -96,40 +80,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Scroll Animation with GSAP
-  gsap.registerPlugin(ScrollTrigger);
+  if (skillsSection && skillBars.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkillBars();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-  // Animate elements on scroll
-  gsap.utils.toArray('.section-title, .about-img, .about-text, .skill-category, .project-card, .timeline-item, .contact-info, .contact-form').forEach(element => {
-    gsap.from(element, {
-      scrollTrigger: {
-        trigger: element,
-        start: "top 80%",
-        toggleActions: "play none none none"
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power3.out"
-    });
-  });
-
-  // Initialize skill bars animation when skills section is in view
-  const skillsSection = document.getElementById('skills');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateSkillBars();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  if (skillsSection) {
     observer.observe(skillsSection);
   }
 
-  // Add hover effects to floating elements
+  // Scroll Animation with GSAP
+  if (typeof gsap !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.section-title, .about-img, .about-text, .skill-category, .project-card, .timeline-item, .contact-info, .contact-form').forEach(element => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+  }
+
+  // Hover effects to floating elements
   document.querySelectorAll('.floating-card, .float-btn, .float').forEach(element => {
     element.addEventListener('mouseenter', () => {
       element.style.animationPlayState = 'paused';
@@ -148,4 +131,316 @@ document.addEventListener('DOMContentLoaded', function() {
         'translateY(0)' : 'translateY(-5px)';
     }, 1000);
   }
+
+  // Footer current year
+  const currentYearElement = document.getElementById('current-year');
+  if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
+  }
+
+  // Enhanced Contact Form Validation
+  const contactForm = document.getElementById('contactForm');
+  const downloadBtn = document.getElementById('download-resume-btn');
+  let formSubmissionInProgress = false;
+  //offensive words list
+  const offensiveWords = ['loude', 'chut','chutt','ddhdhdghs','louda','lorem','ipsum','example', 'test', 'dummy', 'placeholder','assshdhs']; 
+
+  function showAlert(message, isSuccess = true) {
+    const alertBox = document.createElement('div');
+    alertBox.className = `custom-alert ${isSuccess ? 'success' : 'error'}`;
+    alertBox.textContent = message;
+    document.body.appendChild(alertBox);
+    
+    setTimeout(() => {
+      alertBox.classList.add('fade-out');
+      setTimeout(() => document.body.removeChild(alertBox), 500);
+    }, 3000);
+  }
+
+  function updateDownloadButton() {
+    if (!downloadBtn) return;
+    
+    const status = localStorage.getItem('allowDownload');
+    if (status === 'used') {
+      downloadBtn.textContent = '✓ Resume Downloaded';
+      downloadBtn.classList.add('downloaded');
+      downloadBtn.style.pointerEvents = 'none';
+    } else if (status === 'true') {
+      downloadBtn.textContent = 'Download CV Now';
+      downloadBtn.classList.remove('downloaded');
+      downloadBtn.style.pointerEvents = 'auto';
+    } else {
+      downloadBtn.textContent = 'Contact to Download CV';
+    }
+  }
+
+  function downloadResume() {
+    try {
+      const link = document.createElement('a');
+      link.href = 'resume.pdf';
+      link.download = 'Bharath_R_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return true;
+    } catch (error) {
+      console.error('Download failed:', error);
+      showAlert('Download error. Please try again later.', false);
+      return false;
+    }
+  }
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function validatePhone(phone) {
+    return !phone || /^[\d\s\-+]{10,15}$/.test(phone);
+  }
+
+  function containsGibberish(text) {
+    return /([bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{4,})/.test(text);
+  }
+
+  function containsOffensive(text, words) {
+    const lowerText = text.toLowerCase();
+    return words.some(word => lowerText.includes(word.toLowerCase()));
+  }
+
+  function showError(id, message) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = message;
+      const input = document.getElementById(id.replace('-error', ''));
+      if (input) input.classList.add('invalid');
+    }
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.textContent = '';
+    });
+    document.querySelectorAll('.form-control').forEach(el => {
+      el.classList.remove('invalid');
+    });
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (formSubmissionInProgress) return;
+      
+      clearErrors();
+      formSubmissionInProgress = true;
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      const formData = new FormData(this);
+
+      // Validate inputs
+      const name = formData.get('from_name').trim();
+      const email = formData.get('from_email').trim();
+      const phone = formData.get('phone').trim();
+      const message = formData.get('message').trim();
+      const honeypot = formData.get('website');
+
+      let isValid = true;
+
+      // Honeypot check
+      if (honeypot) {
+        console.log('Bot detected');
+        isValid = false;
+      }
+
+      // Name validation
+      if (name.length < 3 || /[^a-zA-Z \-']/.test(name)) {
+        showError('name-error', 'Please enter a valid name (3+ letters)');
+        isValid = false;
+      }
+
+      // Email validation
+      if (!validateEmail(email)) {
+        showError('email-error', 'Please enter a valid email');
+        isValid = false;
+      }
+
+      // Phone validation
+      if (!validatePhone(phone)) {
+        showError('phone-error', 'Please enter 10-15 digit phone number');
+        isValid = false;
+      }
+
+      // Message validation
+      if (message.length < 20) {
+        showError('message-error', 'Message must be 20+ characters');
+        isValid = false;
+      } else if (containsGibberish(message)) {
+        showError('message-error', 'Please write a meaningful message');
+        isValid = false;
+      } else if (containsOffensive(message, offensiveWords)) {
+        showError('message-error', 'Please remove inappropriate language');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        formSubmissionInProgress = false;
+        return;
+      }
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        if (!localStorage.getItem('emailSent')) {
+          await emailjs.sendForm('service_kuyco8a', 'template_gdh7qcu', this);
+          localStorage.setItem('emailSent', 'true');
+        }
+
+        localStorage.setItem('allowDownload', 'true');
+        this.reset();
+        updateDownloadButton();
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showAlert('Thank you! You may now download my resume.');
+
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('Message failed to send. Please try again later.', false);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        formSubmissionInProgress = false;
+      }
+    });
+  }
+
+  if (downloadBtn) {
+    updateDownloadButton();
+    
+    downloadBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (localStorage.getItem('allowDownload') === 'true') {
+        if (downloadResume()) {
+          localStorage.setItem('allowDownload', 'used');
+          updateDownloadButton();
+          showAlert('Resume downloaded successfully! Page will refresh...');
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      } else {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        showAlert('Please submit the contact form first to download my resume.', false);
+      }
+    });
+  }
+
+  // Certificates slider and lightbox functionality
+  const slider = document.querySelector('.cert-slider');
+  const prevBtn = document.querySelector('.slider-prev');
+  const nextBtn = document.querySelector('.slider-next');
+  const lightbox = document.querySelector('.cert-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('.close-lightbox');
+  const viewButtons = document.querySelectorAll('.view-btn');
+
+  if (slider && prevBtn && nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: 320, behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: -320, behavior: 'smooth' });
+    });
+  }
+
+  if (lightbox && lightboxImg && closeBtn) {
+    viewButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const certPath = 'certificates/' + btn.getAttribute('data-cert');
+        lightboxImg.src = certPath;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  }
+
+  // Auto-scroll certificates if visible
+  if (slider) {
+    let scrollInterval;
+    
+    function isElementVisible(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom > 0
+      );
+    }
+
+    function startAutoScroll() {
+      if (isElementVisible(slider)) {
+        scrollInterval = setInterval(() => {
+          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            slider.scrollBy({ left: 320, behavior: 'smooth' });
+          }
+        }, 5000);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (isElementVisible(slider)) {
+        if (!scrollInterval) startAutoScroll();
+      } else {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+      }
+    });
+
+    if (isElementVisible(slider)) startAutoScroll();
+  }
 });
+
+// Add this CSS for the custom alert
+const style = document.createElement('style');
+style.textContent = `
+  .custom-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  .custom-alert.success {
+    background-color: #4CAF50;
+  }
+  .custom-alert.error {
+    background-color: #F44336;
+  }
+  .custom-alert.fade-out {
+    opacity: 0;
+  }
+`;
+document.head.appendChild(style);
