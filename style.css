@@ -1141,3 +1141,132 @@ button[disabled] {
   border-color: var(--primary);
   outline: none;
 }
+/* Enhanced Certifications Section */
+.certifications {
+  background: #f8fafc;
+  padding: 6rem 0;
+  position: relative;
+}
+
+.certifications .section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.cert-slider {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cert-slide {
+  scroll-snap-align: center;
+  flex: 0 0 350px;
+}
+
+.cert-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  height: 250px;
+  width: 350px;
+}
+
+.cert-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cert-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  padding: 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.cert-card:hover .cert-overlay {
+  transform: translateY(0);
+}
+
+/* Slider controls */
+.slider-prev, .slider-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.slider-prev { left: 20px; }
+.slider-next { right: 20px; }
+
+/* Pause on hover */
+.cert-slider:hover {
+  animation-play-state: paused;
+}
+
+/* Lightbox styles */
+.cert-lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.cert-lightbox img {
+  max-width: 80%;
+  max-height: 80%;
+  border: 2px solid white;
+  border-radius: 8px;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Hide scrollbar but keep functionality */
+.cert-slider::-webkit-scrollbar {
+  display: none;
+}

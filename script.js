@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize EmailJS
-  emailjs.init("VdMoWyii0_W4uT7mJ"); // Your EmailJS Public Key
+  emailjs.init("VdMoWyii0_W4uT7mJ");
 
   // Mobile Menu Toggle
   const menuBtn = document.getElementById('menu-btn');
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
       typewriter.textContent = phrases[i];
       i = (i + 1) % phrases.length;
     }
-
     setInterval(rotateText, 2000);
     rotateText();
   }
@@ -57,12 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => {
       backToTopBtn.classList.toggle('active', window.scrollY > 300);
     });
-
     backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
@@ -89,15 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     }, { threshold: 0.1 });
-
     observer.observe(skillsSection);
   }
 
   // Scroll Animation with GSAP
   if (typeof gsap !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray('.section-title, .about-img, .about-text, .skill-category, .project-card, .timeline-item, .contact-info, .contact-form').forEach(element => {
+    gsap.utils.toArray('.section-title, .about-img, .about-text, .skill-category, .project-card, .timeline-item, .contact-info, .contact-form, .certifications').forEach(element => {
       gsap.from(element, {
         scrollTrigger: {
           trigger: element,
@@ -117,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
     element.addEventListener('mouseenter', () => {
       element.style.animationPlayState = 'paused';
     });
-    
     element.addEventListener('mouseleave', () => {
       element.style.animationPlayState = 'running';
     });
@@ -142,50 +134,48 @@ document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contactForm');
   const downloadBtn = document.getElementById('download-resume-btn');
   let formSubmissionInProgress = false;
-  //offensive words list
-  const offensiveWords = ['loude', 'chut','chutt','ddhdhdghs','louda','lorem','ipsum','example', 'test', 'dummy', 'placeholder','assshdhs']; 
+  const offensiveWords = ['loude', 'chut','fuck','chutt','ddhdhdghs','louda','lorem','ipsum','example', 'test', 'dummy', 'placeholder','assshdhs','fucking','fuck you','name','youname','Bharath R']; 
 
-  function showAlert(message, isSuccess = true) {
-    const alertBox = document.createElement('div');
-    alertBox.className = `custom-alert ${isSuccess ? 'success' : 'error'}`;
-    alertBox.textContent = message;
-    document.body.appendChild(alertBox);
+  function showCustomAlert(message) {
+    const alert = document.getElementById('custom-alert');
+    const alertMessage = document.getElementById('custom-alert-message');
+    const okButton = document.getElementById('custom-alert-ok');
     
-    setTimeout(() => {
-      alertBox.classList.add('fade-out');
-      setTimeout(() => document.body.removeChild(alertBox), 500);
-    }, 3000);
-  }
-
-  function updateDownloadButton() {
-    if (!downloadBtn) return;
+    if (!alert || !alertMessage || !okButton) return;
     
-    const status = localStorage.getItem('allowDownload');
-    if (status === 'used') {
-      downloadBtn.textContent = '✓ Resume Downloaded';
-      downloadBtn.classList.add('downloaded');
-      downloadBtn.style.pointerEvents = 'none';
-    } else if (status === 'true') {
-      downloadBtn.textContent = 'Download CV Now';
-      downloadBtn.classList.remove('downloaded');
-      downloadBtn.style.pointerEvents = 'auto';
-    } else {
-      downloadBtn.textContent = 'Contact to Download CV';
-    }
+    alertMessage.textContent = message;
+    alert.style.display = 'flex';
+    
+    okButton.onclick = function() {
+      alert.style.display = 'none';
+      // Redirect to home page if the message is about successful download
+      if (message.includes('downloaded successfully')) {
+        window.location.href = '/';
+      }
+    };
   }
 
   function downloadResume() {
     try {
+      // Check if already downloaded
+      if (localStorage.getItem('resumeDownloaded') === 'true') {
+        showCustomAlert('You have already downloaded my resume. Thank you for your interest!');
+        return false;
+      }
+      
       const link = document.createElement('a');
       link.href = 'resume.pdf';
       link.download = 'Bharath_R_Resume.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      
+      // Mark as downloaded
+      localStorage.setItem('resumeDownloaded', 'true');
       return true;
     } catch (error) {
       console.error('Download failed:', error);
-      showAlert('Download error. Please try again later.', false);
+      showCustomAlert('Download error. Please try again later.');
       return false;
     }
   }
@@ -253,8 +243,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       // Name validation
-      if (name.length < 3 || /[^a-zA-Z \-']/.test(name)) {
-        showError('name-error', 'Please enter a valid name (3+ letters)');
+      if (name.length < 5 || /[^a-zA-Z \-']/.test(name)) {
+        showError('name-error', 'Please enter a valid name (5+ letters)');
         isValid = false;
       }
 
@@ -298,14 +288,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         localStorage.setItem('allowDownload', 'true');
         this.reset();
-        updateDownloadButton();
         
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        showAlert('Thank you! You may now download my resume.');
+        // Show success message
+        showCustomAlert('Thanks for contacting me! My resume will download automatically...');
+        
+        // Automatically download resume after 2 seconds
+        setTimeout(() => {
+          if (downloadResume()) {
+            localStorage.setItem('allowDownload', 'used');
+            showCustomAlert('Resume downloaded successfully! Redirecting to home page...');
+          }
+        }, 2000);
 
       } catch (error) {
         console.error('Error:', error);
-        showAlert('Message failed to send. Please try again later.', false);
+        showCustomAlert('Message failed to send. Please try again later.');
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
@@ -315,24 +312,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (downloadBtn) {
-    updateDownloadButton();
-    
     downloadBtn.addEventListener('click', function(e) {
       e.preventDefault();
+      
+      if (localStorage.getItem('resumeDownloaded') === 'true') {
+        showCustomAlert('You have already downloaded my resume. Thank you for your interest!');
+        return;
+      }
       
       if (localStorage.getItem('allowDownload') === 'true') {
         if (downloadResume()) {
           localStorage.setItem('allowDownload', 'used');
-          updateDownloadButton();
-          showAlert('Resume downloaded successfully! Page will refresh...');
-          
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+          showCustomAlert('Resume downloaded successfully! Redirecting to home page...');
         }
       } else {
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        showAlert('Please submit the contact form first to download my resume.', false);
+        showCustomAlert('Please fill out my contact form to download my resume.');
+        document.getElementById('contact').scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
       }
     });
   }
@@ -348,11 +346,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (slider && prevBtn && nextBtn) {
     nextBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: 320, behavior: 'smooth' });
+      slider.scrollBy({ left: 350, behavior: 'smooth' });
     });
-
     prevBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: -320, behavior: 'smooth' });
+      slider.scrollBy({ left: -350, behavior: 'smooth' });
     });
   }
 
@@ -379,10 +376,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Auto-scroll certificates if visible
+  // Auto-scroll certificates with pause on hover
   if (slider) {
     let scrollInterval;
+    let isHovering = false;
+    const scrollSpeed = 3000; // 3 seconds between slides
     
+    slider.addEventListener('mouseenter', () => {
+      isHovering = true;
+      clearInterval(scrollInterval);
+    });
+    
+    slider.addEventListener('mouseleave', () => {
+      isHovering = false;
+      startAutoScroll();
+    });
+
+    function startAutoScroll() {
+      if (!isHovering) {
+        scrollInterval = setInterval(() => {
+          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            slider.scrollBy({ left: 350, behavior: 'smooth' });
+          }
+        }, scrollSpeed);
+      }
+    }
+
     function isElementVisible(el) {
       const rect = el.getBoundingClientRect();
       return (
@@ -391,18 +412,8 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     }
 
-    function startAutoScroll() {
-      if (isElementVisible(slider)) {
-        scrollInterval = setInterval(() => {
-          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            slider.scrollBy({ left: 320, behavior: 'smooth' });
-          }
-        }, 5000);
-      }
-    }
-
+    if (isElementVisible(slider)) startAutoScroll();
+    
     window.addEventListener('scroll', () => {
       if (isElementVisible(slider)) {
         if (!scrollInterval) startAutoScroll();
@@ -411,36 +422,5 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollInterval = null;
       }
     });
-
-    if (isElementVisible(slider)) startAutoScroll();
   }
 });
-
-// Add this CSS for the custom alert
-const style = document.createElement('style');
-style.textContent = `
-  .custom-alert {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    border-radius: 4px;
-    color: white;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
-  .custom-alert.success {
-    background-color: #4CAF50;
-  }
-  .custom-alert.error {
-    background-color: #F44336;
-  }
-  .custom-alert.fade-out {
-    opacity: 0;
-  }
-`;
-document.head.appendChild(style);
