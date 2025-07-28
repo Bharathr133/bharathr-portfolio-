@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let formSubmissionInProgress = false;
   const offensiveWords = ['loude', 'chut','fuck','chutt','ddhdhdghs','louda','lorem','ipsum','example', 'test', 'dummy', 'placeholder','assshdhs','fucking','fuck you','name','youname','Bharath R']; 
 
-  function showCustomAlert(message) {
+  function showCustomAlert(message, redirectAfter = false) {
     const alert = document.getElementById('custom-alert');
     const alertMessage = document.getElementById('custom-alert-message');
     const okButton = document.getElementById('custom-alert-ok');
@@ -148,8 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     okButton.onclick = function() {
       alert.style.display = 'none';
-      // Redirect to home page if the message is about successful download
-      if (message.includes('downloaded successfully')) {
+      if (redirectAfter) {
         window.location.href = '/';
       }
     };
@@ -281,24 +280,30 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-        if (!localStorage.getItem('emailSent')) {
-          await emailjs.sendForm('service_kuyco8a', 'template_gdh7qcu', this);
-          localStorage.setItem('emailSent', 'true');
-        }
-
-        localStorage.setItem('allowDownload', 'true');
+        // Send email with professional template
+        await emailjs.send("service_kuyco8a", "template_gdh7qcu", {
+          from_name: name,
+          from_email: email,
+          phone: phone,
+          message: message,
+          reply_to: email
+        });
+        
         this.reset();
         
-        // Show success message
-        showCustomAlert('Thanks for contacting me! My resume will download automatically...');
-        
-        // Automatically download resume after 2 seconds
-        setTimeout(() => {
-          if (downloadResume()) {
-            localStorage.setItem('allowDownload', 'used');
-            showCustomAlert('Resume downloaded successfully! Redirecting to home page...');
-          }
-        }, 4000);
+        // CASE 1: User came from Download CV click
+        if (localStorage.getItem('downloadRequested') === 'true') {
+          localStorage.setItem('allowDownload', 'true');
+          showCustomAlert('Thank you! You may now download my resume by clicking the Download CV button.');
+          document.getElementById('download-resume-btn').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+        // CASE 2: Direct contact form submission
+        else {
+          showCustomAlert('Thanks for contacting me! I will get back to you ASAP!', true);
+        }
 
       } catch (error) {
         console.error('Error:', error);
@@ -315,23 +320,30 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadBtn.addEventListener('click', function(e) {
       e.preventDefault();
       
+      // Already downloaded
       if (localStorage.getItem('resumeDownloaded') === 'true') {
         showCustomAlert('You have already downloaded my resume. Thank you for your interest!');
         return;
       }
       
+      // Download allowed after form submission
       if (localStorage.getItem('allowDownload') === 'true') {
         if (downloadResume()) {
-          localStorage.setItem('allowDownload', 'used');
-          showCustomAlert('Resume downloaded successfully! Redirecting to home page...');
+          showCustomAlert('Resume downloaded successfully!');
+          localStorage.removeItem('allowDownload');
+          localStorage.removeItem('downloadRequested');
+          window.location.href = '/'; // Redirect to home after download
         }
-      } else {
-        showCustomAlert('Please fill out my contact form to download my resume.');
-        document.getElementById('contact').scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'center'
-        });
+        return;
       }
+      
+      // First time click - request contact info
+      localStorage.setItem('downloadRequested', 'true');
+      showCustomAlert('To download my resume, please complete the contact form first.');
+      document.getElementById('contact').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
     });
   }
 
