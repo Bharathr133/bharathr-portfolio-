@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('allowDownload', 'used');
             showCustomAlert('Resume downloaded successfully! Redirecting to home page...');
           }
-        }, 2000);
+        }, 4000);
 
       } catch (error) {
         console.error('Error:', error);
