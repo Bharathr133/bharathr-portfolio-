@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bharath R | Modern Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="image copy.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,6 +12,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <img src="zenistuCoder.jpg" alt="Loading" class="loading-image">
+      <p class="loading-text">Hold tight — greatness loading…</p>
+    </div>
+  </div>
+
+  <!-- Inactivity Toast -->
+  <div id="inactivity-toast" class="toast-hidden">
+    <div class="toast-content">
+      <span class="toast-icon">👀</span>
+      <span class="toast-message">Don't miss out! Keep scrolling to explore all my projects and see my full portfolio in action.</span>
+    </div>
+  </div>
+
   <!-- Header -->
   <header id="header">
     <a href="#" class="logo"><i class="fas fa-code"></i> Bharath</a>
@@ -19,12 +36,16 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-       <a href="#certifications">Certifications</a>
+      <a href="#certifications">Certifications</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="menu-btn" id="menu-btn">
-      <i class="fas fa-bars"></i>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </header>
 
@@ -42,12 +63,10 @@
           <a href="mailto:12345bharathr.com@gmail.com" class="float"><i class="fas fa-envelope"></i></a>
           <a href="https://wa.me/917892771468" target="_blank" class="float"><i class="fab fa-whatsapp"></i></a>
         </div>
-        <a href="#contact" class="btn float-btn">Get In Touch</a>
-        <!-- Replace your commented out Download CV button with this -->
-        <!-- <a href="#" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a> -->
-        <a href="#contact" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a>
-        <!-- <a href="#contact" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a> -->
-        <!-- <a href="Bharath_R_Resume.pdf" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a> -->
+        <div class="hero-buttons">
+          <a href="#contact" class="btn float-btn">Get In Touch</a>
+          <a href="#contact" class="btn btn-outline float-btn" id="download-resume-btn">Download CV</a>
+        </div>
       </div>
       <div class="hero-image">
         <div class="floating-image">
@@ -58,56 +77,38 @@
     <div class="hero-shape"></div>
   </section>
 
-  <!-- About Section -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="section-title">
-        <h2>About Me</h2>
+  <!-- About Section with Flip Animation -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="section-title">
+      <h2>About Me</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-img">
+        <div class="flip-container" id="flip-container">
+          <div class="flipper">
+            <div class="front">
+              <img src="HeadShot.jpg" alt="Bharath R Professional Headshot" class="flip-image">
+            </div>
+            <div class="back">
+              <img src="bharathr.jpg" alt="Bharath R Casual Photo" class="flip-image">
+            </div>
+          </div>
+          <div class="flip-overlay">
+            <i class="fas fa-sync-alt"></i>
+            <span>Click to flip</span>
+          </div>
+        </div>
       </div>
-      <div class="about-content">
-        <div class="about-img">
-          <div class="floating-image">
-            <img src="bharath.jpg" alt="Bharath R">
-          </div>
-        </div>
-        <div class="about-text">
-          <h3>Who am I?</h3>
-          <p>I'm Bharath R, a passionate Computer Science Engineering student from Bangalore, India. I specialize in building modern web applications and implementing machine learning solutions to solve real-world problems.</p>
-          <p>With a strong foundation in computer science principles and hands-on experience in full-stack development, I create efficient, scalable, and user-friendly applications. I'm constantly learning new technologies and frameworks to stay at the forefront of the industry.</p>
-          <p>When I'm not coding, you can find me exploring new tech trends, contributing to open-source projects.</p>
-          <div class="skills">
-            <div class="skill-item">
-              <div class="skill-info">
-                <span>Frontend Development</span>
-                <span>95%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="95"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-info">
-                <span>Backend Development</span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-info">
-                <span>Machine Learning</span>
-                <span>80%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="80"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="about-text">
+        <h3>Who am I?</h3>
+        <p>I'm Bharath R, a passionate Computer Science Engineering student from Bangalore, India. I specialize in building modern web applications and implementing machine learning solutions to solve real-world problems.</p>
+        <p>With a strong foundation in computer science principles and hands-on experience in full-stack development, I create efficient, scalable, and user-friendly applications. I'm constantly learning new technologies and frameworks to stay at the forefront of the industry.</p>
+        <p>When I'm not coding, you can find me exploring new tech trends, contributing to open-source projects.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Skills Section -->
   <section class="skills section" id="skills">
@@ -116,122 +117,200 @@
         <h2>My Skills</h2>
       </div>
       <div class="skills-grid">
+        <!-- Frontend Card -->
         <div class="skill-category floating-card">
-          <h3><i class="fas fa-laptop-code"></i> Frontend</h3>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>HTML5</span>
-              <span>98%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="98"></div>
-            </div>
+          <div class="skill-category-header">
+            <i class="fas fa-laptop-code"></i>
+            <h3>Frontend</h3>
           </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>CSS3</span>
-              <span>95%</span>
+          <div class="skill-items-container">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-html5" style="color: #e34f26;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>HTML5</span>
+                  <span>98%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="98"></div>
+                </div>
+              </div>
             </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="95"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-css3-alt" style="color: #1572b6;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>CSS3</span>
+                  <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="95"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>JavaScript</span>
-              <span>90%</span>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-js" style="color: #f7df1e;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>JavaScript</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90"></div>
+                </div>
+              </div>
             </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="90"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-react" style="color: #61dafb;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>React.js</span>
+                  <span>88%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="88"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>React.js</span>
-              <span>88%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="88"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-css3-alt" style="color: #38b2ac;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Tailwind CSS</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
+        <!-- Backend Card -->
         <div class="skill-category floating-card">
-          <h3><i class="fas fa-server"></i> Backend</h3>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Node.js</span>
-              <span>85%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="85"></div>
-            </div>
+          <div class="skill-category-header">
+            <i class="fas fa-server"></i>
+            <h3>Backend</h3>
           </div>
-          <div class="skill-item">
-            <!-- <div class="skill-info">
-              <span>Express.js</span>
-              <span>82%</span>
+          <div class="skill-items-container">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-java" style="color: #007396;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Java Spring Boot</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85"></div>
+                </div>
+              </div>
             </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="82"></div>
-            </div> -->
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Python</span>
-              <span>70%</span>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-python" style="color: #3776ab;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Python</span>
+                  <span>70%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="70"></div>
+                </div>
+              </div>
             </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="70"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-database" style="color: #4479a1;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>MySQL</span>
+                  <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="80"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Java</span>
-              <span>70%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="70"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-fire" style="color: #ffca28;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Firebase</span>
+                  <span>75%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="75"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
+        <!-- Interests Card -->
         <div class="skill-category floating-card">
-          <h3><i class="fas fa-brain"></i> AI/ML</h3>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>TensorFlow</span>
-              <span>78%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="78"></div>
-            </div>
+          <div class="skill-category-header">
+            <i class="fas fa-brain"></i>
+            <h3>Interests & Tools</h3>
           </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>PyTorch</span>
-              <span>75%</span>
+          <div class="skill-items-container">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-robot" style="color: #10b981;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Prompt Engineering</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90"></div>
+                </div>
+              </div>
             </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="75"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-tools" style="color: #8b5cf6;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>AI Tools</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="85"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>OpenCV</span>
-              <span>82%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="82"></div>
-            </div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>NLP</span>
-              <span>70%</span>
-            </div>
-            <div class="skill-bar">
-              <div class="skill-progress" data-width="70"></div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-chart-line" style="color: #f59e0b;"></i>
+              </div>
+              <div class="skill-content">
+                <div class="skill-info">
+                  <span>Exploring Latest Trends</span>
+                  <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="95"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -246,35 +325,55 @@
         <h2>My Projects</h2>
       </div>
       <div class="projects-grid">
-        <!-- Project 1 -->
+        <!-- Project 1: Pneumonia Detection -->
         <div class="project-card floating-card">
           <div class="project-img">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Pneumonia Detection">
-           </div>
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Pneumonia Detection System">
+          </div>
           <div class="project-info">
             <h3>Pneumonia Detection System</h3>
-            <p>A deep learning model that analyzes chest X-ray images to detect pneumonia with 94% accuracy, helping doctors with early diagnosis.</p>
+            <p>A deep learning model that analyzes chest X-ray images to detect pneumonia with 94% accuracy, assisting doctors in early diagnosis.</p>
             <div class="project-tags">
               <span class="project-tag">Python</span>
               <span class="project-tag">TensorFlow</span>
               <span class="project-tag">CNN</span>
               <span class="project-tag">OpenCV</span>
-            </div> 
+            </div>
             <div class="project-links">
-              <!-- <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
               <a href="https://github.com/Bharathr133/" target="_blank"><i class="fab fa-github"></i> Source Code</a>
             </div>
           </div>
         </div>
         
-        <!-- Project 2 -->
+        <!-- Project 2: KodBook -->
         <div class="project-card floating-card">
           <div class="project-img">
-            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Meal-Mate">
+            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="KodBook Social Media">
           </div>
           <div class="project-info">
-            <h3>Meal-Mate Restaurant App</h3>
-            <p>A full-stack restaurant companion application with real-time ordering, table reservation, and food recommendation features.</p>
+            <h3>KodBook – Social Media Web Application</h3>
+            <p>Developed a responsive social networking platform where users can create profiles, post content, interact through likes/comments, and share multimedia.</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">Spring Boot</span>
+              <span class="project-tag">SQL</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Bharathr133/KodBook" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3: Meal-Mate -->
+        <div class="project-card floating-card">
+          <div class="project-img">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Meal-Mate Restaurant App">
+          </div>
+          <div class="project-info">
+            <h3>Meal-Mate – Restaurant App</h3>
+            <p>A full-stack restaurant companion application with real-time ordering, table reservation, and food recommendations.</p>
             <div class="project-tags">
               <span class="project-tag">Python</span>
               <span class="project-tag">HTML</span>
@@ -282,20 +381,19 @@
               <span class="project-tag">JavaScript</span>
             </div>
             <div class="project-links">
-              <!-- <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
               <a href="https://github.com/Bharathr133/meal-mate-app" target="_blank"><i class="fab fa-github"></i> Source Code</a>
             </div>
           </div>
         </div>
         
-        <!-- Project 3 -->
+        <!-- Project 4: Blood Group Detection -->
         <div class="project-card floating-card">
           <div class="project-img">
             <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1386&q=80" alt="Blood Group Detection">
           </div>
           <div class="project-info">
             <h3>Blood Group Detection</h3>
-            <p>An innovative system that analyzes fingerprint patterns to predict blood groups using machine learning algorithms with 87% accuracy.</p>
+            <p>An innovative system that predicts blood groups by analyzing fingerprint patterns using machine learning with 87% accuracy.</p>
             <div class="project-tags">
               <span class="project-tag">Python</span>
               <span class="project-tag">Scikit-learn</span>
@@ -303,20 +401,19 @@
               <span class="project-tag">Flask</span>
             </div>
             <div class="project-links">
-              <!-- <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
               <a href="#" target="_blank"><i class="fab fa-github"></i> Source Code</a>
             </div>
           </div>
         </div>
         
-        <!-- Project 4 -->
+        <!-- Project 5: Portfolio Website -->
         <div class="project-card floating-card">
           <div class="project-img">
             <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="Portfolio Website">
           </div>
           <div class="project-info">
-            <h3>Interactive Portfolio</h3>
-            <p>A modern, responsive portfolio website with animations and interactive features to showcase my work and skills.</p>
+            <h3>Portfolio Website – Interactive Portfolio</h3>
+            <p>A modern, responsive portfolio website with animations and interactive features to showcase work and skills.</p>
             <div class="project-tags">
               <span class="project-tag">HTML5</span>
               <span class="project-tag">CSS3</span>
@@ -324,7 +421,6 @@
               <span class="project-tag">GSAP</span>
             </div>
             <div class="project-links">
-              <!-- <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a> -->
               <a href="#" target="_blank"><i class="fab fa-github"></i> Source Code</a>
             </div>
           </div>
@@ -332,114 +428,127 @@
       </div>
     </div>
   </section>
-  <!-- Add this to your HTML file -->
-<section class="certifications" id="certifications">
-  <h2>My Certifications</h2>
-  <div class="cert-slider">
-    <!-- AWS Summit -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/aws summit (2025).jpg" alt="AWS Summit 2025" loading="lazy">
-        <div class="cert-overlay">
-          <h3>AWS Summit Attendee</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="aws summit (2025).jpg">View</button>
+
+  <!-- Certifications Section -->
+<section class="certifications section" id="certifications">
+  <div class="container">
+    <div class="section-title">
+      <h2>My Certifications</h2>
+      <p class="cert-instruction">Click to view certificates</p>
+    </div>
+    <div class="cert-slider-container">
+      <div class="cert-slider">
+        <!-- AWS Summit -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/aws summit (2025).jpg" alt="AWS Summit 2025" loading="lazy">
+            <div class="cert-overlay">
+              <h3>AWS Summit Attendee</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="aws summit (2025).jpg">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Coddy Tech -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/coddy_tech (2024).jpg" alt="Coddy Tech Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>Coddy Tech Certification</h3>
+              <p>Issued: 2024</p>
+              <button class="view-btn" data-cert="coddy_tech (2024).jpg">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- HackerRank -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/HackerRank certificate.png" alt="HackerRank Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>HackerRank Certification</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="HackerRank certificate.png">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- IBM -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/IBM Certification (2025).jpg" alt="IBM Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>IBM Professional</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="IBM Certification (2025).jpg">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Skilected -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/skilected certificate(2025).jpg" alt="Skilected Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>Skilected Certified</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="skilected certificate(2025).jpg">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- TCS ION -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/tcs ion (2025).jpg" alt="TCS ION Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>TCS ION Certified</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="tcs ion (2025).jpg">View</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Udemy -->
+        <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/Udemy_Certificate(2025).jpg" alt="Udemy Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>Udemy Professional</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="Udemy_Certificate(2025).jpg">View</button>
+            </div>
+          </div>
+        </div>
+       
+       <!-- Besant Technologies -->
+       <div class="cert-slide">
+          <div class="cert-card">
+            <img src="certificates/Besant Technologies Certificate(2025).jpg" alt="Besant technologies Certification" loading="lazy">
+            <div class="cert-overlay">
+              <h3>Besant Technologies</h3>
+              <p>Issued: 2025</p>
+              <button class="view-btn" data-cert="Besant Technologies Certificate(2025).jpg">View</button>
+            </div>
+          </div>
         </div>
       </div>
+      
+      <!-- Slider Controls -->
+      <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
     </div>
     
-    <!-- Coddy Tech -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/coddy_tech (2024).jpg" alt="Coddy Tech Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>Coddy Tech Certification</h3>
-          <p>Issued: 2024</p>
-          <button class="view-btn" data-cert="coddy_tech (2024).jpg">View</button>
+    <!-- Enhanced Lightbox Modal -->
+    <div class="cert-lightbox" id="cert-lightbox">
+      <div class="lightbox-content">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-image-container">
+          <img id="lightbox-img" src="" alt="Certificate Preview">
         </div>
       </div>
     </div>
-    
-    <!-- HackerRank -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/HackerRank certificate.png" alt="HackerRank Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>HackerRank Certification</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="HackerRank certificate.png">View</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- IBM -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/IBM Certification (2025).jpg" alt="IBM Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>IBM Professional</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="IBM Certification (2025).jpg">View</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Skilected -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/skilected certificate(2025).jpg" alt="Skilected Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>Skilected Certified</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="skilected certificate(2025).jpg">View</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- TCS ION -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/tcs ion (2025).jpg" alt="TCS ION Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>TCS ION Certified</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="tcs ion (2025).jpg">View</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Udemy -->
-    <div class="cert-slide">
-      <div class="cert-card">
-        <img src="certificates/Udemy_Certificate(2025).jpg" alt="Udemy Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>Udemy Professional</h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="Udemy_Certificate(2025).jpg">View</button>
-        </div>
-      </div>
-    </div>
-  
-   <div class="cert-slide">
-      <div class="cert-card">
-        <img src="Certificates/Besant Technologies Certificate(2025).jpg" alt="Besant technologies Certification" loading="lazy">
-        <div class="cert-overlay">
-          <h3>Besant Technologies </h3>
-          <p>Issued: 2025</p>
-          <button class="view-btn" data-cert="Besant Technologies Certificate(2025).jpg">View</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Slider Controls -->
-  <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
-  <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
-  
-  <!-- Lightbox Modal -->
-  <div class="cert-lightbox">
-    <span class="close-lightbox">&times;</span>
-    <img id="lightbox-img" src="" alt="Certificate Preview">
   </div>
 </section>
 
@@ -451,6 +560,9 @@
       </div>
       <div class="timeline">
         <div class="timeline-item floating-card">
+          <div class="timeline-icon">
+            <i class="fas fa-school"></i>
+          </div>
           <div class="timeline-content">
             <span class="timeline-date">2017 - 2019</span>
             <h3>Secondary School</h3>
@@ -459,6 +571,9 @@
           </div>
         </div>
         <div class="timeline-item floating-card">
+          <div class="timeline-icon">
+            <i class="fas fa-university"></i>
+          </div>
           <div class="timeline-content">
             <span class="timeline-date">2019 - 2021</span>
             <h3>Higher Secondary</h3>
@@ -467,11 +582,14 @@
           </div>
         </div>
         <div class="timeline-item floating-card">
+          <div class="timeline-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
           <div class="timeline-content">
             <span class="timeline-date">2021 - 2025</span>
             <h3>Bachelor of Engineering</h3>
             <h4>Dr. Sri Shivakumara Mahaswamy College Of Engineering, Bangalore</h4>
-            <p>B.E. in Computer Science and Engineering | CGPA: 8.01 </p>
+            <p>B.E. in Computer Science and Engineering | CGPA: 8.01</p>
           </div>
         </div>
       </div>
@@ -522,72 +640,76 @@
   <form id="contactForm">
     <div class="form-group">
       <label for="name">Your Name*</label>
-      <input type="text" id="name" name="from_name" class="form-control" required>
+      <input type="text" id="name" name="from_name" class="form-control" required autocomplete="name">
       <small class="error-message" id="name-error"></small>
     </div>
     
     <div class="form-group">
       <label for="email">Your Email*</label>
-      <input type="email" id="email" name="from_email" class="form-control" required>
+      <input type="email" id="email" name="from_email" class="form-control" required autocomplete="email">
       <small class="error-message" id="email-error"></small>
     </div>
     
     <div class="form-group">
       <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" class="form-control">
+      <input type="tel" id="phone" name="phone" class="form-control" autocomplete="tel">
       <small class="error-message" id="phone-error"></small>
     </div>
     
     <div class="form-group">
       <label for="message">Your Message*</label>
-      <textarea id="message" name="message" class="form-control" required></textarea>
+      <textarea id="message" name="message" class="form-control" required autocomplete="off"></textarea>
       <small class="error-message" id="message-error"></small>
     </div>
     
-
     <button type="submit" class="btn float-btn">Send Message</button>
   </form>
 </div>
-
+      </div>
+    </div>
   </section>
-<footer>
-  <div class="footer-content">
-    <a href="#" class="footer-logo">Bharath R</a>
-    
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <a href="#" class="footer-logo">Bharath R</a>
+      
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+      
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/bharathr_13" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/bharathr133" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/bharathr13" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:12345bharathr.com@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/917892771468" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      
+      <p class="copyright">© <span id="current-year">2025</span> Bharath R. All rights reserved.</p>
     </div>
-    
-    <div class="footer-socials">
-      <a href="https://www.instagram.com/bharathr_13" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://github.com/bharathr133" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/bharathr13" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-      <a href="mailto:12345bharathr.com@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-      <a href="https://wa.me/917892771468" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    </div>
-    
-    <p class="copyright">© <span id="current-year">2025</span> Bharath R. All rights reserved.</p>
-  </div>
-</footer>
+  </footer>
+
   <!-- Back to Top Button -->
   <div class="back-to-top" id="back-to-top">
     <i class="fas fa-arrow-up"></i>
   </div>
-<!-- Custom Alert Modal -->
-<div id="custom-alert" class="custom-alert">
-  <div class="custom-alert-content floating-card">
-    <h3>Bharath R says</h3>
-    <p id="custom-alert-message"></p>
-    <button id="custom-alert-ok" class="btn float-btn">OK</button>
+
+  <!-- Custom Alert Modal -->
+  <div id="custom-alert" class="custom-alert">
+    <div class="custom-alert-content floating-card">
+      <h3>Bharath R says</h3>
+      <p id="custom-alert-message"></p>
+      <button id="custom-alert-ok" class="btn float-btn">OK</button>
+    </div>
   </div>
-</div>
-  <!-- Scripts -->
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>

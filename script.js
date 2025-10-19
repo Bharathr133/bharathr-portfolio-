@@ -2,26 +2,128 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize EmailJS
   emailjs.init("VdMoWyii0_W4uT7mJ");
 
-  // Mobile Menu Toggle
-  const menuBtn = document.getElementById('menu-btn');
-  const nav = document.getElementById('nav');
+  // Loading Screen
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+    setTimeout(() => {
+      loadingScreen.classList.add('fade-out');
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+      }, 500);
+    }, 2000);
+  }
 
-  if (menuBtn && nav) {
-    menuBtn.addEventListener('click', () => {
-      nav.classList.toggle('active');
-      menuBtn.innerHTML = nav.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('#nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-      });
+  // Image Flip Animation
+  const flipContainer = document.getElementById('flip-container');
+  if (flipContainer) {
+    flipContainer.addEventListener('click', function() {
+      this.classList.toggle('flipped');
     });
   }
 
+  // Enhanced Inactivity Toast
+  const inactivityToast = document.getElementById('inactivity-toast');
+  let inactivityTimer;
+  let toastShown = false;
+
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(showInactivityToast, 15000); // 15 seconds
+  }
+
+  function showInactivityToast() {
+    if (!toastShown && document.visibilityState === 'visible') {
+      inactivityToast.classList.remove('toast-hidden');
+      inactivityToast.classList.add('toast-visible');
+      toastShown = true;
+    }
+  }
+
+  function hideInactivityToast() {
+    if (toastShown) {
+      inactivityToast.classList.remove('toast-visible');
+      inactivityToast.classList.add('toast-hidden');
+      toastShown = false;
+    }
+    resetInactivityTimer();
+  }
+
+  // Events that reset the timer
+  const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+  events.forEach(event => {
+    document.addEventListener(event, hideInactivityToast, true);
+  });
+
+  // Handle page visibility
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+      resetInactivityTimer();
+    } else {
+      clearTimeout(inactivityTimer);
+      hideInactivityToast();
+    }
+  });
+
+  resetInactivityTimer();
+
+  // Enhanced Mobile Menu Toggle - Professional Right Side
+const menuBtn = document.getElementById('menu-btn');
+const nav = document.getElementById('nav');
+const hamburger = document.querySelector('.hamburger');
+
+// Create menu overlay
+const menuOverlay = document.createElement('div');
+menuOverlay.className = 'menu-overlay';
+document.body.appendChild(menuOverlay);
+
+if (menuBtn && nav) {
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isActive = nav.classList.toggle('active');
+    menuBtn.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (isActive) {
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
+    }
+  });
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('#nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('active');
+      menuBtn.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
+    });
+  });
+
+  // Close menu when clicking overlay
+  menuOverlay.addEventListener('click', () => {
+    nav.classList.remove('active');
+    menuBtn.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    document.body.classList.remove('menu-open');
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('active')) {
+      nav.classList.remove('active');
+      menuBtn.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
+    }
+  });
+}
   // Header scroll effect
   window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
@@ -34,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const typewriter = document.getElementById('typewriter');
   if (typewriter) {
     const phrases = [
-      "Computer Science Engineer",
+      "Java Developer",
       "Full Stack Developer",
       "Machine Learning Enthusiast",
       "Tech Explorer",
@@ -44,7 +146,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let i = 0;
     function rotateText() {
       typewriter.textContent = phrases[i];
-      i = (i + 1) % phrases.length;
+      typewriter.style.opacity = '0';
+      setTimeout(() => {
+        typewriter.textContent = phrases[i];
+        typewriter.style.opacity = '1';
+        i = (i + 1) % phrases.length;
+      }, 500);
     }
     setInterval(rotateText, 2000);
     rotateText();
@@ -61,8 +168,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Animate Skill Bars on Scroll
-  const skillBars = document.querySelectorAll('.skill-progress');
+  // Animate Skill Bars on Scroll - For About Section
+  const aboutSkillBars = document.querySelectorAll('.about .skill-progress');
+  const aboutSection = document.getElementById('about');
+
+  function animateAboutSkillBars() {
+    aboutSkillBars.forEach(bar => {
+      const width = bar.getAttribute('data-width');
+      bar.style.width = '0';
+      setTimeout(() => {
+        bar.style.width = width + '%';
+      }, 100);
+    });
+  }
+
+  if (aboutSection && aboutSkillBars.length > 0) {
+    const aboutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateAboutSkillBars();
+          aboutObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    aboutObserver.observe(aboutSection);
+  }
+
+  // Animate Skill Bars on Scroll - For Skills Section
+  const skillBars = document.querySelectorAll('.skills .skill-progress');
   const skillsSection = document.getElementById('skills');
 
   function animateSkillBars() {
@@ -76,15 +209,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (skillsSection && skillBars.length > 0) {
-    const observer = new IntersectionObserver((entries) => {
+    const skillsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateSkillBars();
-          observer.unobserve(entry.target);
+          skillsObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    observer.observe(skillsSection);
+    skillsObserver.observe(skillsSection);
   }
 
   // Scroll Animation with GSAP
@@ -128,6 +261,105 @@ document.addEventListener('DOMContentLoaded', function() {
   const currentYearElement = document.getElementById('current-year');
   if (currentYearElement) {
     currentYearElement.textContent = new Date().getFullYear();
+  }
+
+  // Enhanced Certificate Lightbox - Professional Center View
+const lightbox = document.getElementById('cert-lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeBtn = document.querySelector('.close-lightbox');
+const viewButtons = document.querySelectorAll('.view-btn');
+
+if (lightbox && lightboxImg && closeBtn) {
+  viewButtons.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const certPath = 'certificates/' + this.getAttribute('data-cert');
+      
+      // Show loading state
+      lightboxImg.style.opacity = '0';
+      lightboxImg.src = certPath;
+      
+      // Open lightbox
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('lightbox-open');
+      
+      // Wait for image to load
+      lightboxImg.onload = function() {
+        lightboxImg.style.opacity = '1';
+      };
+    });
+  });
+
+  // Close lightbox function
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+    document.body.classList.remove('lightbox-open');
+    lightboxImg.src = '';
+    lightboxImg.style.opacity = '1';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  // Close when clicking outside the content (on overlay)
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Close on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+      closeLightbox();
+    }
+  });
+
+  // Prevent scroll on lightbox content
+  lightbox.addEventListener('wheel', function(e) {
+    e.stopPropagation();
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    if (lightbox.style.display === 'flex') {
+      // Keep lightbox centered on resize
+      lightbox.scrollTop = 0;
+    }
+  });
+}
+  // Basic Code Protection
+  // Disable right-click
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+  document.addEventListener('keydown', function(e) {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+      (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+      (e.ctrlKey && e.key === 'u')
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // Prevent image dragging
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable', 'false');
+  });
+
+  // Clear console on open (basic protection)
+  if (typeof console !== "undefined") {
+    console.log('%c🔒 Protected Content', 'color: #6366f1; font-size: 16px; font-weight: bold;');
+    console.log('%cThis portfolio is protected. Please respect the intellectual property.', 'color: #94a3b8;');
   }
 
   // Enhanced Contact Form Validation
@@ -344,95 +576,6 @@ document.addEventListener('DOMContentLoaded', function() {
         behavior: 'smooth',
         block: 'center'
       });
-    });
-  }
-
-  // Certificates slider and lightbox functionality
-  const slider = document.querySelector('.cert-slider');
-  const prevBtn = document.querySelector('.slider-prev');
-  const nextBtn = document.querySelector('.slider-next');
-  const lightbox = document.querySelector('.cert-lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const closeBtn = document.querySelector('.close-lightbox');
-  const viewButtons = document.querySelectorAll('.view-btn');
-
-  if (slider && prevBtn && nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: 350, behavior: 'smooth' });
-    });
-    prevBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: -350, behavior: 'smooth' });
-    });
-  }
-
-  if (lightbox && lightboxImg && closeBtn) {
-    viewButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const certPath = 'certificates/' + btn.getAttribute('data-cert');
-        lightboxImg.src = certPath;
-        lightbox.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    closeBtn.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    });
-  }
-
-  // Auto-scroll certificates with pause on hover
-  if (slider) {
-    let scrollInterval;
-    let isHovering = false;
-    const scrollSpeed = 3000; // 3 seconds between slides
-    
-    slider.addEventListener('mouseenter', () => {
-      isHovering = true;
-      clearInterval(scrollInterval);
-    });
-    
-    slider.addEventListener('mouseleave', () => {
-      isHovering = false;
-      startAutoScroll();
-    });
-
-    function startAutoScroll() {
-      if (!isHovering) {
-        scrollInterval = setInterval(() => {
-          if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            slider.scrollBy({ left: 350, behavior: 'smooth' });
-          }
-        }, scrollSpeed);
-      }
-    }
-
-    function isElementVisible(el) {
-      const rect = el.getBoundingClientRect();
-      return (
-        rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.bottom > 0
-      );
-    }
-
-    if (isElementVisible(slider)) startAutoScroll();
-    
-    window.addEventListener('scroll', () => {
-      if (isElementVisible(slider)) {
-        if (!scrollInterval) startAutoScroll();
-      } else {
-        clearInterval(scrollInterval);
-        scrollInterval = null;
-      }
     });
   }
 });
