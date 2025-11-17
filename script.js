@@ -641,3 +641,49 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+// Quick Contact Button Animation
+const quickButtons = document.querySelectorAll('.quick-btn');
+quickButtons.forEach(btn => {
+  btn.addEventListener('mouseenter', function() {
+    this.style.animationPlayState = 'paused';
+  });
+  
+  btn.addEventListener('mouseleave', function() {
+    this.style.animationPlayState = 'running';
+  });
+});
+
+// Stats Counter Animation
+const statsSection = document.querySelector('.stats');
+const statNumbers = document.querySelectorAll('.stat-card h3');
+
+function animateStats() {
+  statNumbers.forEach(stat => {
+    const target = parseInt(stat.textContent);
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        stat.textContent = target + '+';
+        clearInterval(timer);
+      } else {
+        stat.textContent = Math.floor(current) + '+';
+      }
+    }, 30);
+  });
+}
+
+// Intersection Observer for Stats
+if (statsSection) {
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateStats();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  statsObserver.observe(statsSection);
+}
