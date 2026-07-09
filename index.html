@@ -27,6 +27,26 @@
 </head>
 
 <body>
+    <!-- Upgrade Notification Modal -->
+    <div id="upgrade-modal" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;">
+        <div style="background: #1e293b; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 2.5rem; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transform: scale(0.9); transition: transform 0.4s ease; color: #f8fafc; font-family: 'Poppins', sans-serif;">
+            <div style="font-size: 3.5rem; margin-bottom: 1rem;">🚀</div>
+            <h2 style="font-size: 1.8rem; font-weight: 700; color: #6366f1; margin: 0 0 10px 0;">Portfolio Upgraded!</h2>
+            <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1.8rem;">
+                Welcome! I have upgraded my portfolio to a brand new, highly interactive Next.js application with a retro CLI console, git branch timeline, and more.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="https://bharathr.vercel.app/" target="_blank" style="background: #6366f1; color: #ffffff; padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 10px 20px rgba(99,102,241,0.3); transition: all 0.3s ease;">
+                    <span>Explore New Site</span>
+                    <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                </a>
+                <button id="close-upgrade-modal" style="background: transparent; color: #94a3b8; border: none; padding: 0.5rem; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-decoration: underline; font-family: inherit;">
+                    Continue to old site
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-content">
@@ -74,13 +94,11 @@
                 <div class="typewriter" id="typewriter"></div>
                 <p>Java Full Stack Developer | Computer Science Engineer | Machine Learning Enthusiast</p>
                 <div class="socials">
-                    <!-- <a href="https://www.instagram.com/" target="_blank" class="float"><i class="fab fa-instagram"></i></a> -->
                     <a href="https://github.com/bharathr133" target="_blank" class="float"><i
                             class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/bharathr13" target="_blank" class="float"><i
                             class="fab fa-linkedin-in"></i></a>
                     <a href="mailto:12345bharathr.com@gmail.com" class="float"><i class="fas fa-envelope"></i></a>
-                    <!-- <a href="https://wa.me/" target="_blank" class="float"><i class="fab fa-whatsapp"></i></a> -->
                 </div>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn float-btn">Get In Touch</a>
@@ -129,14 +147,6 @@
                 <h2>About Me</h2>
             </div>
             <div class="about-content">
-               
-            </div>
-            <div class="flip-overlay">
-                <i class="fas fa-sync-alt"></i>
-                <span>Click to flip</span>
-            </div>
-        </div>
-        </div>
         <style>
             .about-card {
                 max-width: 900px;
@@ -218,14 +228,16 @@
                         (JPA)</strong> for backend development. On the frontend, I work with <strong>HTML5, CSS3,
                         JavaScript, and React.js</strong> to create responsive user interfaces. I also use
                     <strong>RESTful APIs, MySQL, PostgreSQL, and MongoDB</strong> for database integration. For version
-                    control, I'm proficient with <strong>Git, GitHub, and GitLab</strong>.</p>
+                    control, I'm proficient with <strong>Git, GitHub, and GitLab</strong>.
+                </p>
 
                 <div class="extra-content">
                     <p>I have hands-on experience deploying applications using <strong>Apache Tomcat</strong> and
                         writing unit tests with <strong>JUnit & Mockito</strong>. I follow <strong>Agile/Scrum</strong>
                         methodologies and use tools like <strong>Postman, Swagger (OpenAPI), and Maven/Gradle</strong>.
                         I'm also familiar with <strong>basic CI/CD pipelines (Jenkins)</strong> and
-                        <strong>Docker</strong> for containerization.</p>
+                        <strong>Docker</strong> for containerization.
+                    </p>
                     <p>When I'm not coding, I explore new tech trends, contribute to open-source projects, and
                         continuously improve my problem-solving skills through competitive programming.</p>
                 </div>
@@ -890,20 +902,24 @@
                                     class="contact-link">12345bharathr.com@gmail.com</a>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
-                     <div class="contact-form floating-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 3rem 2rem; background: #ffffff; border-radius: 1.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
-         <div style="font-size: 3rem; margin-bottom: 1.5rem; color: #6366f1;">🚀</div>
-         <h3 style="font-size: 1.5rem; font-weight: 700; color: #1e2a3e; margin-bottom: 1rem;">My Portfolio has Upgraded!</h3>
-         <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6; margin-bottom: 2rem; max-width: 320px;">
-           To view my latest projects, full work experience, and get in touch with me directly, visit my new modern interactive portfolio.
-         </p>
-         <a href="https://bharathr.vercel.app/" target="_blank" class="btn float-btn" style="background: #6366f1; color: #ffffff; padding: 0.8rem 2rem; border-radius: 0.75rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 10px 20px rgba(99,102,241,0.25); border: none; cursor: pointer;">
-           <span>Go to New Portfolio</span>
-           <i class="fas fa-arrow-right"></i>
-         </a>
-       </div>
+                <div class="contact-form floating-card"
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 3rem 2rem; background: #ffffff; border-radius: 1.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                    <div style="font-size: 3rem; margin-bottom: 1.5rem; color: #6366f1;">🚀</div>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #1e2a3e; margin-bottom: 1rem;">My Portfolio
+                        has Upgraded!</h3>
+                    <p
+                        style="font-size: 0.95rem; color: #64748b; line-height: 1.6; margin-bottom: 2rem; max-width: 320px;">
+                        To view my latest projects, full work experience, and get in touch with me directly, visit my
+                        new modern interactive portfolio.
+                    </p>
+                    <a href="https://bharathr.vercel.app/" target="_blank" class="btn float-btn"
+                        style="background: #6366f1; color: #ffffff; padding: 0.8rem 2rem; border-radius: 0.75rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 10px 20px rgba(99,102,241,0.25); border: none; cursor: pointer;">
+                        <span>Go to New Portfolio</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -925,13 +941,11 @@
             </div>
 
             <div class="footer-socials">
-                <!-- <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> -->
                 <a href="https://github.com/bharathr133" target="_blank" aria-label="GitHub"><i
                         class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/bharathr13" target="_blank" aria-label="LinkedIn"><i
                         class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:12345bharathr.com@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <!-- <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a> -->
             </div>
 
             <p class="copyright">© <span id="current-year">2025</span> Bharath R. All rights reserved.</p>
@@ -952,13 +966,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
