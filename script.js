@@ -13,6 +13,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 2000);
     }
 
+    // Upgrade Notification Modal Controller
+    const upgradeModal = document.getElementById('upgrade-modal');
+    if (upgradeModal) {
+        setTimeout(() => {
+            upgradeModal.style.opacity = '1';
+            upgradeModal.style.pointerEvents = 'auto';
+            const innerContent = upgradeModal.querySelector('div');
+            if (innerContent) innerContent.style.transform = 'scale(1)';
+        }, 2500);
+
+        const closeUpgradeBtn = document.getElementById('close-upgrade-modal');
+        if (closeUpgradeBtn) {
+            closeUpgradeBtn.addEventListener('click', () => {
+                upgradeModal.style.opacity = '0';
+                upgradeModal.style.pointerEvents = 'none';
+                const innerContent = upgradeModal.querySelector('div');
+                if (innerContent) innerContent.style.transform = 'scale(0.9)';
+            });
+        }
+    }
+
     // Image Flip Animation
     const flipContainer = document.getElementById('flip-container');
     if (flipContainer) {
@@ -424,19 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('%cThis portfolio is protected. Please respect the intellectual property.', 'color: #94a3b8;');
     }
 
-    // Simple Resume Download Handler
-    const downloadBtn = document.getElementById('download-resume-btn');
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const link = document.createElement('a');
-            link.href = 'resume.pdf';
-            link.download = 'Bharath_R_Resume.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-    }
+
 });
 // Quick Contact Button Animation
 const quickButtons = document.querySelectorAll('.quick-btn');
